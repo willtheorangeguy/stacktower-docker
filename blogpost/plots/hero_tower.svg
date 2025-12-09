@@ -21,46 +21,46 @@
   <a href="https://github.com/pydantic/typing-inspection" target="_blank"><path id="block-typing-inspection" class="block" d="M 171.64 234.46 Q 173.12 203.92 178.12 205.34 Q 183.12 206.76 188.12 205.86 Q 193.12 204.96 198.12 205.33 Q 203.12 205.70 202.36 235.35 Q 201.60 265.00 202.57 295.00 Q 203.55 325.00 201.44 355.00 Q 199.34 385.00 196.23 384.04 Q 193.12 383.08 188.12 384.89 Q 183.12 386.70 178.12 385.10 Q 173.12 383.51 172.31 354.25 Q 171.49 325.00 170.83 295.00 Q 170.16 265.00 171.64 234.46 Z" fill="rgba(205,205,205,1)" stroke="#333" stroke-width="2" stroke-linejoin="round" transform="rotate(-1.046 188.12 295.00)"/></a>
   <g class="block-text" data-block="annotated-doc">
   <a href="https://github.com/fastapi/annotated-doc" target="_blank">    <rect x="58.00" y="224.80" width="24.00" height="140.40" fill="rgba(248,248,248,1)"/>
-    <text x="70.00" y="295.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', cursive" font-size="24.0" fill="#333" transform="rotate(-90 70.00 295.00)">annotated-doc</text>
+    <text x="70.00" y="295.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', 'Comic Sans MS', 'Bradley Hand', 'Segoe Script', sans-serif" font-size="24.0" fill="#333" transform="rotate(-90 70.00 295.00)">annotated-doc</text>
 </a>  </g>
   <g class="block-text" data-block="annotated-types">
   <a href="https://github.com/annotated-types/annotated-types" target="_blank">    <rect x="128.67" y="248.06" width="13.91" height="93.89" fill="rgba(207,207,207,1)"/>
-    <text x="135.62" y="295.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', cursive" font-size="13.9" fill="#333" transform="rotate(-90 135.62 295.00)">annotated-types</text>
+    <text x="135.62" y="295.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', 'Comic Sans MS', 'Bradley Hand', 'Segoe Script', sans-serif" font-size="13.9" fill="#333" transform="rotate(-90 135.62 295.00)">annotated-types</text>
 </a>  </g>
   <g class="block-text" data-block="anyio">
   <a href="https://github.com/agronholm/anyio" target="_blank">    <rect x="239.88" y="238.00" width="54.00" height="24.00" fill="rgba(187,187,187,1)"/>
-    <text x="266.88" y="250.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', cursive" font-size="24.0" fill="#333">anyio</text>
+    <text x="266.88" y="250.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', 'Comic Sans MS', 'Bradley Hand', 'Segoe Script', sans-serif" font-size="24.0" fill="#333">anyio</text>
 </a>  </g>
   <g class="block-text" data-block="exceptiongroup">
   <a href="https://github.com/agronholm/exceptiongroup" target="_blank">    <rect x="210.38" y="314.80" width="8.00" height="50.40" fill="rgba(243,243,243,1)"/>
-    <text x="214.38" y="340.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', cursive" font-size="8.0" fill="#333" transform="rotate(-90 214.38 340.00)">exceptiongroup</text>
+    <text x="214.38" y="340.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', 'Comic Sans MS', 'Bradley Hand', 'Segoe Script', sans-serif" font-size="8.0" fill="#333" transform="rotate(-90 214.38 340.00)">exceptiongroup</text>
 </a>  </g>
   <g class="block-text" data-block="fastapi">
   <a href="https://github.com/fastapi/fastapi" target="_blank">    <rect x="137.20" y="58.00" width="75.60" height="24.00" fill="rgba(249,249,249,1)"/>
-    <text x="175.00" y="70.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', cursive" font-size="24.0" fill="#333">fastapi</text>
+    <text x="175.00" y="70.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', 'Comic Sans MS', 'Bradley Hand', 'Segoe Script', sans-serif" font-size="24.0" fill="#333">fastapi</text>
 </a>  </g>
   <g class="block-text" data-block="idna">
   <a href="https://github.com/kjd/idna" target="_blank">    <rect x="271.00" y="368.80" width="18.00" height="32.40" fill="rgba(203,203,203,1)"/>
-    <text x="280.00" y="385.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', cursive" font-size="18.0" fill="#333" transform="rotate(-90 280.00 385.00)">idna</text>
+    <text x="280.00" y="385.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', 'Comic Sans MS', 'Bradley Hand', 'Segoe Script', sans-serif" font-size="18.0" fill="#333" transform="rotate(-90 280.00 385.00)">idna</text>
 </a>  </g>
   <g class="block-text" data-block="pydantic">
   <a href="https://github.com/pydantic/pydantic" target="_blank">    <rect x="155.36" y="136.53" width="13.04" height="46.94" fill="rgba(171,171,171,1)"/>
-    <text x="161.88" y="160.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', cursive" font-size="13.0" fill="#333" transform="rotate(-90 161.88 160.00)">pydantic</text>
+    <text x="161.88" y="160.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', 'Comic Sans MS', 'Bradley Hand', 'Segoe Script', sans-serif" font-size="13.0" fill="#333" transform="rotate(-90 161.88 160.00)">pydantic</text>
 </a>  </g>
   <g class="block-text" data-block="pydantic-core">
   <a href="https://github.com/pydantic/pydantic-core" target="_blank">    <rect x="153.85" y="248.06" width="16.05" height="93.89" fill="rgba(163,163,163,1)"/>
-    <text x="161.88" y="295.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', cursive" font-size="16.0" fill="#333" transform="rotate(-90 161.88 295.00)">pydantic-core</text>
+    <text x="161.88" y="295.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', 'Comic Sans MS', 'Bradley Hand', 'Segoe Script', sans-serif" font-size="16.0" fill="#333" transform="rotate(-90 161.88 295.00)">pydantic-core</text>
 </a>  </g>
   <g class="block-text" data-block="starlette">
   <a href="https://github.com/Kludex/starlette" target="_blank">    <rect x="261.08" y="136.53" width="11.59" height="46.94" fill="rgba(203,203,203,1)"/>
-    <text x="266.88" y="160.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', cursive" font-size="11.6" fill="#333" transform="rotate(-90 266.88 160.00)">starlette</text>
+    <text x="266.88" y="160.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', 'Comic Sans MS', 'Bradley Hand', 'Segoe Script', sans-serif" font-size="11.6" fill="#333" transform="rotate(-90 266.88 160.00)">starlette</text>
 </a>  </g>
   <g class="block-text" data-block="typing-extensions">
   <a href="https://github.com/python/typing_extensions" target="_blank">    <rect x="171.00" y="399.40" width="8.00" height="61.20" fill="rgba(227,227,227,1)"/>
-    <text x="175.00" y="430.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', cursive" font-size="8.0" fill="#333" transform="rotate(-90 175.00 430.00)">typing-extensions</text>
+    <text x="175.00" y="430.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', 'Comic Sans MS', 'Bradley Hand', 'Segoe Script', sans-serif" font-size="8.0" fill="#333" transform="rotate(-90 175.00 430.00)">typing-extensions</text>
 </a>  </g>
   <g class="block-text" data-block="typing-inspection">
   <a href="https://github.com/pydantic/typing-inspection" target="_blank">    <rect x="181.99" y="248.06" width="12.27" height="93.89" fill="rgba(205,205,205,1)"/>
-    <text x="188.12" y="295.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', cursive" font-size="12.3" fill="#333" transform="rotate(-90 188.12 295.00)">typing-inspection</text>
+    <text x="188.12" y="295.00" text-anchor="middle" dominant-baseline="middle" font-family="'Patrick Hand', 'Comic Sans MS', 'Bradley Hand', 'Segoe Script', sans-serif" font-size="12.3" fill="#333" transform="rotate(-90 188.12 295.00)">typing-inspection</text>
 </a>  </g>
 </svg>

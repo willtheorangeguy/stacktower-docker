@@ -46,6 +46,7 @@ func Execute() error {
 	root.AddCommand(newParseCmd())
 	root.AddCommand(newRenderCmd())
 	root.AddCommand(newPQTreeCmd())
+	root.AddCommand(newServerCmd())
 
 	return root.ExecuteContext(context.Background())
 }

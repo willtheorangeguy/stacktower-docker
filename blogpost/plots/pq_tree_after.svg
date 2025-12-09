@@ -29,7 +29,7 @@
 <g id="node3" class="node">
 <title>n2</title>
 <ellipse fill="white" stroke="black" cx="108.72" cy="-90" rx="27" ry="18"/>
-<text text-anchor="middle" x="108.72" y="-85.8" font-family="SF Mono, Menlo, monospace" font-size="14.00">Q</text>
+<text text-anchor="middle" x="108.72" y="-85.8" font-family="SF Mono, Menlo, monospace" font-size="14.00">P</text>
 </g>
 <!-- n0&#45;&gt;n2 -->
 <g id="edge2" class="edge">

@@ -1658,3 +1658,54 @@ mjx-container {
         display: none;
     }
 }
+
+/* === Verbose Checkbox === */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-custom {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 3px;
+    margin-right: 0.5rem;
+    display: inline-block;
+    position: relative;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.checkbox-label:hover .checkbox-custom {
+    border-color: var(--accent-color);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.checkbox-custom::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 1px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom::after {
+    display: block;
+}

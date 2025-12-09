@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Dependency Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico">
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <h1 class="hero-title">Project Dependency Generator</h1>
+            <p class="hero-subtitle">Enter a public repository URL or a package name to visualize its dependency graph.</p>
+        </header>
+
+        <main>
+            <div class="demo-block">
+                <h4>Generate Dependency List</h4>
+                <form id="dependency-form" class="form-container">
+                    <div class="form-group">
+                        <label for="project-identifier">Repository URL or Package Name</label>
+                        <input type="text" id="project-identifier" name="project-identifier" placeholder="e.g., expressjs/express or my-package" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="source-type">Ecosystem</label>
+                        <select id="source-type" name="source-type">
+                            <option value="github">GitHub (Go)</option>
+                            <option value="npm">JavaScript (npm)</option>
+                            <option value="pypi">Python (PyPI)</option>
+                            <option value="crates">Rust (crates.io)</option>
+                            <option value="rubygems">Ruby (RubyGems)</option>
+                            <option value="packagist">PHP (Packagist)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+						<label class="checkbox-label" for="verbose-toggle">
+							<input type="checkbox" id="verbose-toggle" name="verbose-toggle">
+							<span class="checkbox-custom"></span>
+							Verbose Output
+						</label>
+                    </div>
+
+                    <button type="submit" class="hero-cta" id="generate-btn">
+                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.93179 4.93179C5.52495 4.33862 6.35515 4 7.25 4C8.14485 4 8.97505 4.33862 9.56821 4.93179C10.1614 5.52495 10.5 6.35515 10.5 7.25C10.5 8.14485 10.1614 8.97505 9.56821 9.56821C8.97505 10.1614 8.14485 10.5 7.25 10.5C6.35515 10.5 5.52495 10.1614 4.93179 9.56821C4.33862 8.97505 4 8.14485 4 7.25C4 6.35515 4.33862 5.52495 4.93179 4.93179Z" stroke="currentColor" stroke-width="1.5"></path><path d="M7.25 11.5V14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M7.25 3.5V0.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M10.8536 10.8536L12.9749 12.9749" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M1.52515 2.02515L3.64642 4.14642" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M11.5 7.25H14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M0.5 7.25H3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M10.8536 3.64642L12.9749 1.52515" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M1.52515 12.4749L3.64642 10.3536" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
+                        <span>Generate</span>
+                    </button>
+                </form>
+            </div>
+
+            <div id="results-container" class="results-container" style="display: none;">
+                <div id="loading-spinner" style="display: none; text-align: center; margin: 2rem 0;">
+                    <p>Generating dependency graph...</p>
+                </div>
+                <div id="error-message" class="callout warning" style="display: none;"></div>
+                <div id="diagram-output"></div>
+                <pre id="json-output" class="code-output" style="display: none;"></pre>
+            </div>
+        </main>
+    </div>
+
+    <style>
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        .form-group input[type="text"],
+        .form-group select {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            width: 100%;
+        }
+        .form-group input[type="text"]:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-color) 20%, transparent);
+        }
+        .hero-cta {
+            width: fit-content;
+            align-self: flex-start;
+        }
+    </style>
+    <script src="dependencies.js"></script>
+</body>
+</html>
