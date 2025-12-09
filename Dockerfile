@@ -11,6 +11,7 @@ RUN go mod download
 COPY . .
 
 # Build the application
+RUN go mod tidy
 RUN CGO_ENABLED=0 GOOS=linux go build -o /stacktower main.go
 
 # Final stage
