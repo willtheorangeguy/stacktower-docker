@@ -128,14 +128,13 @@ func renderHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 var parserFactories = map[string]func() (source.Parser, error){
-	"pypi":       func() (source.Parser, error) { return python.NewParser(source.DefaultCacheTTL) },
-	"crates":     func() (source.Parser, error) { return rust.NewParser(source.DefaultCacheTTL) },
-	"npm":        func() (source.Parser, error) { return javascript.NewParser(source.DefaultCacheTTL) },
-	"rubygems":   func() (source.Parser, error) { return ruby.NewParser(source.DefaultCacheTTL) },
-	"packagist":  func() (source.Parser, error) { return php.NewParser(source.DefaultCacheTTL) },
+	"pypi":      func() (source.Parser, error) { return python.NewParser(source.DefaultCacheTTL) },
+	"crates":    func() (source.Parser, error) { return rust.NewParser(source.DefaultCacheTTL) },
+	"npm":       func() (source.Parser, error) { return javascript.NewParser(source.DefaultCacheTTL) },
+	"rubygems":  func() (source.Parser, error) { return ruby.NewParser(source.DefaultCacheTTL) },
+	"packagist": func() (source.Parser, error) { return php.NewParser(source.DefaultCacheTTL) },
 	// "github" would need a different handling as it's not a simple package parser
 }
-
 
 func dependenciesHandler(ctx context.Context) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -167,7 +166,7 @@ func dependenciesHandler(ctx context.Context) http.Handler {
 			http.Error(w, fmt.Sprintf("Error parsing dependencies: %v", err), http.StatusInternalServerError)
 			return
 		}
-		
+
 		// Now we will render as json
 		w.Header().Set("Content-Type", "application/json")
 		if err := pkgio.WriteJSON(graph, w); err != nil {
@@ -177,11 +176,10 @@ func dependenciesHandler(ctx context.Context) http.Handler {
 	})
 }
 
-
 func runParseForServer(ctx context.Context, p source.Parser, pkg string, opts *parseOpts) (*dag.DAG, error) {
 	// This function is an adaptation of runParse from parse.go
 	// We can't use the logger from the command context here easily, so we use a default one for now.
-	
+
 	// No metadata providers for now to keep it simple
 	var providers []source.MetadataProvider
 
