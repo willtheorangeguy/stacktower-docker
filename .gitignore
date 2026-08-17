@@ -61,3 +61,5 @@ graphs/*.json
 /_legacy/target/
 **/*.rs.bk
 Cargo.lock
+.bandit/
+.recall/
