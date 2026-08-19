@@ -1,214 +1,109 @@
-# Stacktower
+<!-- Logo -->
+<h1 align="center">Stacktower (Docker)</h1>
 
-Inspired by [XKCD #2347](https://xkcd.com/2347/), Stacktower renders dependency graphs as **physical towers** where blocks rest on what they depend on. Your application sits at the top, supported by libraries below—all the way down to that one critical package maintained by *some dude in Nebraska*.
+<!-- Tagline -->
+<h4 align="center">A web interface and Docker runtime for Stacktower, which renders package dependency graphs as XKCD-style physical towers.</h4>
 
+<!-- Badges -->
+<div align="center">
+  <!-- CI -->
+  <img alt="CI State" src="https://github.com/willtheorangeguy/stacktower-docker/actions/workflows/ci.yml/badge.svg">
+  <!-- Docker -->
+  <img alt="Docker Image State" src="https://github.com/willtheorangeguy/stacktower-docker/actions/workflows/docker-image.yml/badge.svg">
+  <!-- Issues -->
+  <img alt="GitHub Issues" src="https://img.shields.io/github/issues/willtheorangeguy/stacktower-docker">
+  <!-- Pull Requests -->
+  <img alt="GitHub Pull Requests" src="https://img.shields.io/github/issues-pr/willtheorangeguy/stacktower-docker">
+  <!-- License -->
+  <img alt="License" src="https://img.shields.io/github/license/willtheorangeguy/stacktower-docker">
+</div>
+
+<!-- Nav -->
+<p align="center">
+  <a href="#key-features">Key Features</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#documentation">Documentation</a> •
+  <a href="#support">Support</a> •
+  <a href="#contributing">Contributing</a> •
+  <a href="#attribution">Attribution</a> •
+  <a href="#license">License</a>
+</p>
+
+<!-- Hero -->
 <p align="center">
   <img src="blogpost/plots/showcase/python/fastapi.svg" alt="FastAPI dependency tower" width="600">
 </p>
 
-📖 **[Read the full story at stacktower.io](https://www.stacktower.io)**
+Inspired by [XKCD #2347](https://xkcd.com/2347/), Stacktower draws a dependency graph as a tower where every block rests on what it depends on. Your application sits at the top, held up by libraries below — all the way down to that one critical package maintained by *some dude in Nebraska*.
 
-## Quick Start
+This repository is a fork of [matzehuels/stacktower](https://github.com/matzehuels/stacktower) that adds a **web interface and a container** on top of the upstream CLI.
+
+## Key Features
+
+* Renders dependency graphs as towers, with block width proportional to how much rests on each package.
+* Parses from five registries: PyPI, crates.io, npm, Packagist, and RubyGems.
+* Optimal edge-crossing minimisation via branch-and-bound with PQ-tree pruning, with a heuristic fallback.
+* Hand-drawn or clean SVG styles, hover popups, and a `--nebraska` ranking of load-bearing packages with few maintainers.
+* Accepts any directed graph as JSON — not only package dependencies.
+* Adds a `server` subcommand and a Docker image, so the same visualisations work from a browser.
+
+## Installation
+
+```bash
+git clone https://github.com/willtheorangeguy/stacktower-docker
+cd stacktower-docker
+docker compose up --build
+```
+
+Then open `http://localhost:8080`.
+
+For the CLI alone, install upstream's — this fork changes nothing about it:
 
 ```bash
 go install github.com/matzehuels/stacktower@latest
-
-# Render the included Flask example
-stacktower render examples/real/flask.json -t tower -o flask.svg
 ```
 
-Or build from source:
+Every install path is in [`docs/installation.md`](docs/installation.md).
 
-```bash
-git clone https://github.com/matzehuels/stacktower.git
-cd stacktower
-go build -o stacktower .
-```
+> **Do not expose the web interface.** It has no authentication, no request limits, and no server timeouts, and each render spawns a subprocess. The render endpoint also fails on a fresh checkout — see [`docs/internal/known-issues.md`](docs/internal/known-issues.md).
 
 ## Usage
 
-Stacktower works in two stages: **parse** dependency data from package registries, then **render** visualizations.
-
-### Parsing Dependencies
+Parse a package, then render the graph:
 
 ```bash
-# Python (PyPI)
 stacktower parse python fastapi -o fastapi.json
-
-# Rust (crates.io)
-stacktower parse rust serde -o serde.json
-
-# JavaScript (npm)
-stacktower parse javascript yup -o yup.json
-
-# PHP (Packagist/Composer)
-stacktower parse php monolog/monolog -o monolog.json
-
-# Ruby (RubyGems)
-stacktower parse ruby rspec -o rspec.json
+stacktower render fastapi.json -t tower --style handdrawn -o fastapi.svg
 ```
 
-Add `--enrich` with a `GITHUB_TOKEN` to pull repository metadata (stars, maintainers, last commit) for richer visualizations.
+Parsing hits the registry; rendering is offline, so you can re-render as often as you like. Every subcommand and flag is in [`docs/usage.md`](docs/usage.md).
 
-### Rendering
+## Documentation
 
-```bash
-# Tower visualization (recommended)
-stacktower render fastapi.json -t tower -o fastapi.svg
+Full documentation lives in [`docs/`](docs/README.md):
+[Installation](docs/installation.md) · [Quickstart](docs/quickstart.md) · [Usage](docs/usage.md) · [Configuration](docs/configuration.md) · [API](docs/api.md) · [Architecture](docs/architecture.md) · [Development](docs/development.md) · [FAQ](docs/faq.md) · [Troubleshooting](docs/troubleshooting.md) · [Roadmap](docs/roadmap.md)
 
-# Hand-drawn style with hover popups
-stacktower render serde.json -t tower --style handdrawn --popups -o serde.svg
+## Support
 
-# Traditional node-link diagram
-stacktower render yup.json -t nodelink -o yup.svg
-```
+Bugs in tower layout, ordering, or registry parsing belong [upstream](https://github.com/matzehuels/stacktower/issues) — this fork does not diverge there.
 
-### Included Examples
+For the web server or the container, open a [GitHub Discussion](https://github.com/willtheorangeguy/stacktower-docker/discussions/new) or file an [issue](https://github.com/willtheorangeguy/stacktower-docker/issues/new/choose).
 
-The repository ships with pre-parsed graphs so you can experiment immediately:
+## Contributing
 
-```bash
-# Real packages with full metadata
-stacktower render examples/real/flask.json -t tower --style handdrawn --merge -o flask.svg
-stacktower render examples/real/serde.json -t tower --popups -o serde.svg
-stacktower render examples/real/express.json -t tower --ordering barycentric -o express.svg
+Contributions welcome. See the org-wide [Contributing Guide](https://github.com/willtheorangeguy/.github/blob/main/CONTRIBUTING.md) and [Code of Conduct](https://github.com/willtheorangeguy/.github/blob/main/CODE_OF_CONDUCT.md).
 
-# Synthetic test cases
-stacktower render examples/test/diamond.json -t tower -o diamond.svg
-```
+Visualisation changes should go upstream; server and container changes belong here.
 
-## Options Reference
+## Attribution
 
-### Global Options
+This is a fork of [matzehuels/stacktower](https://github.com/matzehuels/stacktower), used under the [Apache License 2.0](LICENSE.md).
 
-| Flag | Description |
-|------|-------------|
-| `-v`, `--verbose` | Enable debug logging (search space info, timing details) |
+All dependency parsing, graph reduction, layering, crossing minimisation, layout, and SVG rendering are upstream's work. This fork adds `internal/cli/server.go`, the `Dockerfile`, and `docker-compose.yml`, and changes nothing else about how Stacktower works.
 
-### Parse Options
-
-| Flag | Description |
-|------|-------------|
-| `--max-depth N` | Maximum dependency depth (default: 10) |
-| `--max-nodes N` | Maximum packages to fetch (default: 100) |
-| `--enrich` | Add repository metadata (requires `GITHUB_TOKEN`) |
-| `--refresh` | Bypass cache |
-
-### Render Options (Tower)
-
-| Flag | Description |
-|------|-------------|
-| `--style simple\|handdrawn` | Visual style |
-| `--width`, `--height` | Frame dimensions (default: 800×600) |
-| `--edges` | Show dependency edges |
-| `--merge` | Merge subdivider blocks |
-| `--ordering optimal\|barycentric` | Crossing minimization algorithm |
-| `--ordering-timeout N` | Timeout for optimal search in seconds (default: 60) |
-| `--nebraska` | Show "Nebraska guy" maintainer ranking |
-| `--popups` | Enable hover popups with metadata |
-
-### Render Options (Node-link)
-
-| Flag | Description |
-|------|-------------|
-| `--detailed` | Show node metadata in labels |
-
-## JSON Format
-
-The render layer accepts a simple JSON format, making it easy to visualize **any** directed graph—not just package dependencies. You can hand-craft graphs for component diagrams, callgraphs, or pipe output from other tools.
-
-### Minimal Example
-
-```json
-{
-  "nodes": [
-    { "id": "app" },
-    { "id": "lib-a" },
-    { "id": "lib-b" }
-  ],
-  "edges": [
-    { "from": "app", "to": "lib-a" },
-    { "from": "lib-a", "to": "lib-b" }
-  ]
-}
-```
-
-### Required Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `nodes[].id` | string | Unique node identifier (displayed as label) |
-| `edges[].from` | string | Source node ID |
-| `edges[].to` | string | Target node ID |
-
-### Optional Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `nodes[].row` | int | Pre-assigned layer (computed automatically if omitted) |
-| `nodes[].kind` | string | Internal use: `"subdivider"` or `"auxiliary"` |
-| `nodes[].meta` | object | Freeform metadata for display features |
-
-### Recognized `meta` Keys
-
-These keys are read by specific render flags. All are optional—missing keys simply disable the corresponding feature.
-
-| Key | Type | Used By |
-|-----|------|---------|
-| `repo_url` | string | Clickable blocks, `--popups`, `--nebraska` |
-| `repo_stars` | int | `--popups` |
-| `repo_owner` | string | `--nebraska` |
-| `repo_maintainers` | []string | `--nebraska`, `--popups` |
-| `repo_last_commit` | string (date) | `--popups`, brittle detection |
-| `repo_last_release` | string (date) | `--popups` |
-| `repo_archived` | bool | `--popups`, brittle detection |
-| `summary` | string | `--popups` (fallback: `description`) |
-
-The `--detailed` flag (node-link only) displays **all** meta keys in the node label.
-
-## How It Works
-
-1. **Parse** — Fetch package metadata from registries (PyPI, crates.io, npm, Packagist, RubyGems)
-2. **Reduce** — Remove transitive edges to show only direct dependencies
-3. **Layer** — Assign each package to a row based on its depth
-4. **Order** — Minimize edge crossings using branch-and-bound with PQ-tree pruning
-5. **Layout** — Compute block widths proportional to downstream dependents
-6. **Render** — Generate clean SVG output
-
-The ordering step is where the magic happens. Stacktower uses an optimal search algorithm that guarantees minimum crossings for small-to-medium graphs. For larger graphs, it gracefully falls back after a configurable timeout.
-
-## Environment Variables
-
-| Variable | Description |
-|----------|-------------|
-| `GITHUB_TOKEN` | GitHub API token for `--enrich` metadata |
-| `GITLAB_TOKEN` | GitLab API token for `--enrich` metadata |
-
-## Caching
-
-HTTP responses are cached in `~/.cache/stacktower/` with a 24-hour TTL. Use `--refresh` to bypass.
-
-## Adding New Languages
-
-To add support for a new package manager (e.g., Go/pkg.go.dev):
-
-1. **Create a registry client** in `pkg/integrations/<registry>/client.go` — parse the registry API, extract dependencies, use `integrations.BaseClient` for HTTP + caching
-
-2. **Create a source parser** in `pkg/source/<lang>/<lang>.go` — implement the `source.PackageInfo` interface (`GetName`, `GetVersion`, `GetDependencies`, `ToMetadata`, `ToRepoInfo`)
-
-3. **Wire into CLI** in `internal/cli/parse.go`:
-   ```go
-   cmd.AddCommand(newParserCmd("<lang> <package>", "Parse <Lang> dependencies",
-       func() (source.Parser, error) { return <lang>.NewParser(source.DefaultCacheTTL) }, &opts))
-   ```
-
-The generic `source.Parse()` handles concurrent fetching, depth limits, and graph construction automatically.
-
-## Learn More
-
-- 📖 **[stacktower.io](https://www.stacktower.io)** — Interactive examples and the full story behind tower visualizations
-- 🐛 **[Issues](https://github.com/matzehuels/stacktower/issues)** — Bug reports and feature requests
+The project story and interactive examples live at [stacktower.io](https://www.stacktower.io), which is upstream's site, not this repository's.
 
 ## License
 
-Apache-2.0
+Apache-2.0 — see [`LICENSE.md`](LICENSE.md).
