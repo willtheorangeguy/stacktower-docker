@@ -10,7 +10,7 @@ rendering is upstream's, unchanged. If you only want the CLI, install upstream's
 
 Layout, ordering, registry parsing, SVG output:
 [upstream](https://github.com/matzehuels/stacktower/issues). The web server, the Dockerfile, the
-Compose file: [here](https://github.com/willtheorangeguy/stacktower-docker/issues).
+Compose file: the [fork issue tracker](https://github.com/willtheorangeguy/stacktower-docker/issues).
 
 ## Can I put the web interface on the internet?
 
@@ -71,4 +71,4 @@ Rendering is entirely offline. Parsing needs the registries. Registry responses 
 ## What licence is this?
 
 Apache-2.0, upstream's licence, retained. See the README's Attribution section and
-[`LICENSE.md`](../LICENSE.md).
+[`LICENSE.md`](license.md).

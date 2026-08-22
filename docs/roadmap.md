@@ -46,7 +46,7 @@ time.
 **Versioned images.** `docker-image.yml` publishes only `:latest`, so nothing can be pinned to a
 known build.
 
-**Fixing the inherited workflows.** `pages.yml` deploys a CNAME for a domain this repository does
+**Fixing the inherited workflows.** `docs.yml` deploys a CNAME for a domain this repository does
 not control, and `homebrew.yml` targets upstream's tap. Both should be adjusted or removed.
 
 ## Non-goals

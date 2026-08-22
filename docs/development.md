@@ -54,11 +54,11 @@ The web server added by this fork has no tests.
 |---|---|---|
 | `ci.yml` | push, PR | Build, vet, test |
 | `docker-image.yml` | push to `main` | Builds and pushes `ghcr.io/{owner}/stacktower:latest` |
-| `pages.yml` | push to `main` touching `blogpost/**` | Deploys `blogpost/` to GitHub Pages |
+| `docs.yml` | push to `main` touching `blogpost/**` | Deploys `blogpost/` to GitHub Pages |
 | `release.yml` | tag push | GoReleaser — binaries and archives |
 | `homebrew.yml` | published release | Bumps a Homebrew formula |
 
-Three of these were inherited from upstream and still point at upstream's targets: `pages.yml`
+Three of these were inherited from upstream and still point at upstream's targets: `docs.yml`
 deploys a `blogpost/CNAME` naming a domain this repository does not control, and `homebrew.yml`
 bumps `matzehuels/homebrew-tap`. Both are recorded in
 [`internal/known-issues.md`](./internal/known-issues.md).

@@ -20,7 +20,7 @@ foundation is wide and the application on top is one narrow block.
 
 ## Project layout
 
-```
+```text
 stacktower-docker/
 ├── main.go               entry point
 ├── internal/cli/         cobra commands

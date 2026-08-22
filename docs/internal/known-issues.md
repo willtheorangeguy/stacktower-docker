@@ -7,12 +7,11 @@ licensing decision rather than a documentation one.
 Ordered by severity. See [`docs/roadmap.md`](../roadmap.md) for the narrative version,
 which also covers deliberate non-goals.
 
-
 **7 open:** 1 high, 4 medium, 2 low.
 
 ## 1. The render endpoint cannot work: the directory it writes to is never created
 
-**Severity:** High  
+**Severity:** High
 **Where:** `internal/cli/server.go` -> `renderHandler`; `Dockerfile`; `.gitignore`
 
 **What:** `renderHandler` begins with `os.CreateTemp("blogpost/tmp", "render-*.json")`. Nothing creates `blogpost/tmp`: there is no `MkdirAll` anywhere in the fork's code (the only one in the tree is in `pkg/httputil/cache.go`, for the HTTP cache), the `Dockerfile` copies `blogpost` as it exists in the repository, and `.gitignore` contains `tmp/`, so the directory cannot be committed even as an empty placeholder. `os.CreateTemp` does not create parent directories. Every `POST /api/render` therefore fails at its first step and returns `500 Error creating temp file`.
@@ -25,7 +24,7 @@ It presumably worked during development because `blogpost/tmp` existed on that m
 
 ## 2. The web server has no authentication, no request limits, and no timeouts
 
-**Severity:** Medium  
+**Severity:** Medium
 **Where:** `internal/cli/server.go` -> `runServer`, `renderHandler`, `dependenciesHandler`
 
 **What:** `http.ListenAndServe(":8080", nil)` uses a zero-value server, so `ReadTimeout`, `WriteTimeout`, and `IdleTimeout` are all unset -- connections have no deadline. Neither handler checks any credential. `renderHandler` does `io.ReadAll(r.Body)` with no cap, writes the result to disk, and runs the binary as a subprocess with `--ordering optimal` and no `--ordering-timeout`, so each request may occupy a core for the built-in 60 seconds. There is no concurrency limit on either handler. `dependenciesHandler` parses with `maxNodes: 500`, five times the CLI default, fetching from a package registry on demand. `docker-compose.yml` publishes the port.
@@ -38,18 +37,18 @@ For a tool run on localhost this is entirely reasonable, and that is very likely
 
 ## 3. The Pages workflow deploys a CNAME for a domain this repository does not control
 
-**Severity:** Medium  
-**Where:** `.github/workflows/pages.yml`, `blogpost/CNAME`
+**Severity:** Medium
+**Where:** `.github/workflows/docs.yml`, `blogpost/CNAME`
 
-**What:** `pages.yml` runs on every push to `main` touching `blogpost/**` and uploads `blogpost` as the GitHub Pages artifact. `blogpost/CNAME` contains `stacktower.io`, upstream's domain. A CNAME file in a Pages artifact sets the site's custom domain. Both the workflow and the file were inherited from upstream unchanged. `blogpost/robots.txt` likewise opens with '# Robots.txt for stacktower.io'.
+**What:** `docs.yml` runs on every push to `main` touching `blogpost/**` and uploads `blogpost` as the GitHub Pages artifact. `blogpost/CNAME` contains `stacktower.io`, upstream's domain. A CNAME file in a Pages artifact sets the site's custom domain. Both the workflow and the file were inherited from upstream unchanged. `blogpost/robots.txt` likewise opens with '# Robots.txt for stacktower.io'.
 
 **Why it matters:** The deployment cannot serve the fork's site: GitHub will either reject the custom domain because the DNS does not point here, or accept the configuration and leave the site unreachable at a domain that resolves elsewhere. Either way the workflow runs on every relevant push and produces nothing usable, which is the kind of failure that gets ignored rather than fixed. Claiming another project's domain in your own Pages configuration is also poor form regardless of whether it succeeds, and if upstream's DNS ever pointed at GitHub without their own verification, it stops being merely untidy.
 
-**Suggested fix:** Delete `blogpost/CNAME` in this fork so Pages uses the default `willtheorangeguy.github.io/stacktower-docker` domain, or delete `pages.yml` if the fork does not want a site at all. The second is probably right -- the fork's contribution is the server and the container, and the blog post is upstream's writing.
+**Suggested fix:** Delete `blogpost/CNAME` in this fork so Pages uses the default `willtheorangeguy.github.io/stacktower-docker` domain, or delete `docs.yml` if the fork does not want a site at all. The second is probably right -- the fork's contribution is the server and the container, and the blog post is upstream's writing.
 
 ## 4. The Homebrew workflow bumps a formula in upstream's tap
 
-**Severity:** Medium  
+**Severity:** Medium
 **Where:** `.github/workflows/homebrew.yml`
 
 **What:** On every published release of this repository the workflow runs `dawidd6/action-homebrew-bump-formula` with `tap: matzehuels/homebrew-tap` and `formula: stacktower`, authenticated with `secrets.HOMEBREW_TAP_TOKEN`. Inherited from upstream unchanged. `continue-on-error: true` is set.
@@ -60,7 +59,7 @@ For a tool run on localhost this is entirely reasonable, and that is very likely
 
 ## 5. The server keeps a second, differently-keyed registry map
 
-**Severity:** Medium  
+**Severity:** Medium
 **Where:** `internal/cli/server.go` -> `parserFactories`; `internal/cli/parse.go`
 
 **What:** `server.go` declares its own map of parser constructors keyed `pypi`, `crates`, `npm`, `rubygems`, `packagist`, while `parse.go` registers the same five parsers as CLI subcommands keyed `python`, `rust`, `javascript`, `ruby`, `php`. `runParseForServer` is likewise described in its own comment as 'an adaptation of runParse from parse.go', and drops the logger and all metadata providers.
@@ -73,8 +72,10 @@ Passing no metadata providers also means graphs from `/api/dependencies` never c
 
 ## 6. The published image is named for the wrong repository and only ever tagged latest
 
-**Severity:** Low  
+**Severity:** Low
 **Where:** `.github/workflows/docker-image.yml`
+
+{% raw %}
 
 **What:** On every push to `main` the workflow builds and pushes `ghcr.io/${{ github.repository_owner }}/stacktower:latest`. The repository is `stacktower-docker`; the image is `stacktower`. `:latest` is the only tag -- no version, no commit SHA.
 
@@ -82,9 +83,11 @@ Passing no metadata providers also means graphs from `/api/dependencies` never c
 
 **Suggested fix:** Add `${{ github.sha }}` and a semver tag alongside `latest`, and name the image after the repository. `docker/metadata-action` does both in a few lines.
 
+{% endraw %}
+
 ## 7. The final image stage is unpinned
 
-**Severity:** Low  
+**Severity:** Low
 **Where:** `Dockerfile`
 
 **What:** The build stage pins `golang:1.25.5-alpine3.23`; the final stage is `FROM alpine:latest`.
@@ -92,7 +95,6 @@ Passing no metadata providers also means graphs from `/api/dependencies` never c
 **Why it matters:** Two builds of the same commit weeks apart can land on different Alpine releases, so a failure that appears in one and not the other cannot be attributed to the source. It is a small surface -- the final stage carries only a static `CGO_ENABLED=0` binary and the `blogpost` directory -- which is why this is Low; but the build stage right above it is pinned to the patch level, so the inconsistency looks like an oversight rather than a decision.
 
 **Suggested fix:** Pin it to a release, `alpine:3.23` or narrower. `scratch` would also work given the binary is static, if nothing needs a shell for debugging.
-
 
 ---
 

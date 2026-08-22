@@ -55,7 +55,7 @@ Returns `image/svg+xml`. Any method other than POST gets `405`.
 
 Render options are **not** configurable over HTTP. The handler always invokes:
 
-```
+```text
 render <tmpfile> -t tower --style handdrawn --width 982 --height 500
        --ordering optimal --merge --randomize
 ```

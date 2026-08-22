@@ -9,7 +9,7 @@ down to the one package maintained by some dude in Nebraska.
 Upstream gives you `parse` and `render` subcommands. This fork adds a `server` subcommand and a
 container that runs it, so the same visualisations are available from a browser.
 
-```
+```text
 docs/
 ├── README.md            this index
 ├── quickstart.md        container up, first tower rendered
@@ -45,4 +45,4 @@ under Apache-2.0. What this repository adds is `internal/cli/server.go`, the `Do
 
 Bugs in tower layout or registry parsing belong
 [upstream](https://github.com/matzehuels/stacktower/issues). Bugs in the server or the container
-belong [here](https://github.com/willtheorangeguy/stacktower-docker/issues).
+belong in the [fork issue tracker](https://github.com/willtheorangeguy/stacktower-docker/issues).
