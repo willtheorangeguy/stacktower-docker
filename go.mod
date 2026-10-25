@@ -1,8 +1,6 @@
 module github.com/matzehuels/stacktower
 
-go 1.25.0
-
-toolchain go1.25.11
+go 1.27.3
 
 require (
 	github.com/charmbracelet/log v0.4.2
